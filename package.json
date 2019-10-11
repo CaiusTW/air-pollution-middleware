@@ -4,11 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.547.0"
+    "aws-sdk": "^2.547.0",
+    "chai": "^4.2.0",
+    "dynamo-sequelize": "^0.7.4-b1",
+    "express": "^4.17.1",
+    "mocha": "^6.2.1",
+    "mockery": "^2.1.0",
+    "sequelize": "^5.19.6"
   }
 }
