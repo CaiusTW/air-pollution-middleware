@@ -1,5 +1,5 @@
 import Reading from '../models/reading.model'
-import {DataMapper} from '@aws/dynamodb-data-mapper'
+import { DataMapper } from '@aws/dynamodb-data-mapper'
 
 class ReadingsController
 {
@@ -11,15 +11,7 @@ class ReadingsController
         this.mapper = mapper;
     }
 
-    public store( reading : Reading ){
-
-        return new Promise( (resolve, reject) => {
-            this.mapper.put({item: reading})
-                .then(resolve)
-                .catch(reject);
-        });
-        
-    }
+    public store = ( reading : Reading ) => this.mapper.put<Reading>({item: reading});
 
 }
 

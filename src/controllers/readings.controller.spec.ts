@@ -1,6 +1,7 @@
 import ReadingController from './reading.controller';
 import { DataMapper } from '@aws/dynamodb-data-mapper';
 import { DynamoDB } from 'aws-sdk';
+
 jest.mock('@aws/dynamodb-data-mapper');
 jest.mock('aws-sdk');
 
