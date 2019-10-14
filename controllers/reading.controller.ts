@@ -10,13 +10,14 @@ class ReadingsController
 
     constructor( mapper : DataMapper, geolocation : GeolocationResolverService )
     {
+        this.geolocation = geolocation;
         this.mapper = mapper;
     }
 
-    public store = ( reading : Reading ) => {
-        
-        return this.mapper.put<Reading>({item: reading});
-
+    public store = async ( reading : Reading ) => {
+        //reading.geo = await this.geolocation.transformPostcode(reading.location);
+        reading.geo = { lng : 0, lat: 0 };
+        return this.mapper.put<Reading>(reading);
     }
 
     public getAll = async () => {

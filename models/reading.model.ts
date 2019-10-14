@@ -3,6 +3,7 @@ import {
     table,
     attribute
 } from '@aws/dynamodb-data-mapper-annotations';
+import IGeolocation from '../interfaces/geolocation.interface';
 
 @table('readings')
 export default class Reading {
@@ -17,7 +18,7 @@ export default class Reading {
     @attribute()
     location: string;
     @attribute()
-    geo: Geolocation;
+    geo: IGeolocation;
 
     public constructor(init?:Partial<Reading>) {
         Object.assign(this, init);

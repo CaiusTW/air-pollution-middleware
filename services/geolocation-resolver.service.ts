@@ -1,17 +1,15 @@
 import IGeolocation from '../interfaces/geolocation.interface';
-import * as Http from 'http';
+//import * as request from 'request-promise-native';
 
 class GeolocationResolverService
 {
 
-    public transformPostcode( code : string )
+    public async transformPostcode( code : string )
     {
-        return new Promise( ( resolve, reject ) => {
-            Http.get('transform', res => {
-                //TODO
-                //resolve(<IGeolocation>res.body);
-            });
-        });
+        //let result = await request.get('http://www.google.co.uk');
+        // console.log("TEST");
+        // console.log(result);
+        return <IGeolocation>{ lng : 2, lat : 0 };
     }
 
 }
