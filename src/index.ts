@@ -36,6 +36,7 @@ app.post('/reading', function (req, res) {
         .catch(err => res.send(err))
 });
 
-app.listen(3000);
-
-console.log(`listinging on ${3000}`);
+let port = process.env.PORT || 8081;
+app.listen(port, () => {
+    console.log(`listinging on ${port}`);
+});
