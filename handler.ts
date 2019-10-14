@@ -6,6 +6,8 @@ import { DataMapper } from '@aws/dynamodb-data-mapper';
 import ReadingController from './controllers/reading.controller';
 import Reading from './models/reading.model';
 import * as fs from 'fs';
+import { Injector } from './injector';
+import GeolocationResolverService from './services/geolocation-resolver.service';
 
 if (fs.existsSync('./aws.config.json')) {
   AWS.config.loadFromPath('./aws.config.json');
@@ -15,12 +17,14 @@ if (fs.existsSync('./aws.config.json')) {
 
 const client = new DynamoDB({ region: 'eu-west-2' });
 const mapper = new DataMapper({ client });
-const readingController = new ReadingController(mapper);
+const geolocationResolver = new GeolocationResolverService();
+const readingController = new ReadingController(mapper, geolocationResolver);
 
 interface ReadingResponse {
   statusCode: number;
   body: string;
 }
+
 
 const postReading = (event: any, context : any, callback: Callback) => {
 

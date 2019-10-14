@@ -16,6 +16,8 @@ export default class Reading {
     timestamp: Date;
     @attribute()
     location: string;
+    @attribute()
+    geo: Geolocation;
 
     public constructor(init?:Partial<Reading>) {
         Object.assign(this, init);
