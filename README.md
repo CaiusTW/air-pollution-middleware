@@ -1,1 +1,3 @@
-`serverless offline` for local server
+```
+$ serverless offline
+``` for local server
