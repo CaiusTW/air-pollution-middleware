@@ -15,8 +15,8 @@ class ReadingsController
     }
 
     public store = async ( reading : Reading ) => {
-        //reading.geo = await this.geolocation.transformPostcode(reading.location);
-        reading.geo = { lng : 0, lat: 0 };
+        reading.geo = await this.geolocation.transformPostcode(reading.location);
+        //reading.geo = { lng : 0, lat: 0 };
         return this.mapper.put<Reading>(reading);
     }
 

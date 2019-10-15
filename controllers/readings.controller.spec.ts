@@ -2,7 +2,8 @@ import ReadingController from './reading.controller';
 import { DataMapper } from '@aws/dynamodb-data-mapper';
 import { DynamoDB } from 'aws-sdk';
 import GeolocationResolverService from '../services/geolocation-resolver.service';
-// import * as request from 'request-promise-native';
+import IGeolocation from '../interfaces/geolocation.interface';
+//import * as request from 'request-promise-native';
 // import requestPromise = require('request-promise-native');
 
 //FYI
@@ -10,7 +11,11 @@ import GeolocationResolverService from '../services/geolocation-resolver.service
 
 jest.mock('@aws/dynamodb-data-mapper');
 jest.mock('aws-sdk');
-//jest.mock('../services/geolocation-resolver.service');
+jest.mock('request-promise-native', () => ({
+    get : jest.fn().mockImplementation(r => { return new Promise((resolve, reject) => { 
+        resolve({ body: "{ \"lng\": 2, \"lat\": 0 }" });
+    }) })
+}));
 
 describe('Reading Controller Tests', function () {
 
@@ -19,11 +24,7 @@ describe('Reading Controller Tests', function () {
     const geolocationService = new GeolocationResolverService();
     const controller = new ReadingController(mapperMock, geolocationService);
 
-    beforeEach(function () {
-        
-    });
-
-    afterEach(function () {
+    afterAll(function () {
         jest.resetAllMocks();
     });
 
@@ -39,15 +40,12 @@ describe('Reading Controller Tests', function () {
             };
 
             mapperMock.put = jest.fn().mockImplementation(r => new Promise((resolve, reject) => { resolve(r); }));
-
-            // jest.spyOn(request, 'get').mockImplementation( (_o, callback) => { 
-                //     callback(null, new request.Response(), { lng: 2, lat: 0 });
-                //     return requestPromise( 'http://test', () => { return { lng: 2, lat: 0 }; } );
-                // });
                 
             let readingResult = await controller.store(testReading);
+
+            console.log(readingResult.geo);
                 
-            expect(readingResult.geo).toBe({ lng: 2, lat: 0 });
+            expect(readingResult.geo).toEqual(<IGeolocation>{ lng: 2, lat: 0 });
 
         });
 
